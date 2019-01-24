@@ -4,6 +4,7 @@ const URL = {
     getShoppingMallInfo:BASEURL + 'goods',
     registerUser:`${LOCALURL}user/register`,
     login:LOCALURL+'user/login',   //用户注册接口
+    getDetailGoodsInfo:LOCALURL+'goods/getDetailGoodsInfo'
     // getGoodsInfo:BASEURL + 'getGoodsInfo',
 }
 module.exports = URL;
