@@ -18,7 +18,6 @@
         },
         methods: {
             goGoodsPage() {
-                alert(this.goodsId)
                 this.$router.push({name:'Goods',query:{goodsId:this.goodsId}})
             }
         },

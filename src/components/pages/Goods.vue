@@ -1,15 +1,36 @@
 <template>
     <div>
-        商品详情页面
-    </div>
+        <div class="topimage-div">
+            <img :src="goodsInfo.IMAGE1" width="100%"/>
+        </div>
+
+        <div class="topimage-div">
+            <img :src="goodsInfo.IMAGE1" width="100%"/>
+        </div>
+        <div class="goods-name">{{goodsInfo.NAME}}</div>
+        <div class="goods-price">价格：{{goodsInfo.PRESENT_PRICE}}</div>
+        <div>
+            <van-tabs >
+            <van-tab title="商品详情">
+            <div class="detail" v-html="goodsInfo.DETAIL">
+            </div>
+            </van-tab>
+            <van-tab title="评价">
+                正在制作中
+            </van-tab>
+            </van-tabs>
+        </div>
+</div>
 </template>
 <script>
     import axios from 'axios'
     import url from '@/serviceAPI.config.js'
+    import { Toast } from 'vant'
     export default {
         data() {
             return {
-                goodsId: '775e575ce28a4f89b1dfe2c99eb08ae7'
+                goodsId: '',
+                goodsInfo:{},   //商品详细数据
             }
         },
         created(){
@@ -19,8 +40,10 @@
             this.getInfo()
         },
         methods: {
+            onClickLeft(){
+                this.$router.go(-1)
+            },
             getInfo() {
-                // alert(url.getDetailGoodsInfo)
                 axios({
                     url:url.getDetailGoodsInfo,
                     method:'post',
@@ -29,7 +52,12 @@
                     }
                 })
                 .then(response=>{
-                    console.log(response)
+                    if(response.data.code == 200 && response.data.message ){
+                         this.goodsInfo = response.data.message 
+                    }else{
+                        Toast('服务器错误，数据取得失败')
+                    }
+                    console.log( this.goodsInfo)
                 })
                 .catch(error=>{
                     console.log(error)
@@ -39,4 +67,13 @@
     }
 </script>
 <style scoped>
+   .detail{
+     font-size:0px;
+    }
+    .goods-name{
+        background-color: #fff;
+    }
+    .goods-price{
+        background-color: #fff;
+    }
 </style>
