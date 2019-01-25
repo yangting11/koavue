@@ -27,6 +27,7 @@ app.use(cors({
 app.use(bodyParser())
 
 const Router = require('koa-router')
+const {connect , initSchemas} = require('./database/init.js')
 let user = require('./appApi/user.js')
 let goods = require('./appApi/goods.js')
 let category = require('./appApi/category.js')
@@ -39,7 +40,6 @@ router.use('/goods',goods.routes())
 router.use('/category',category.routes())
 router.use('/categorysub',categorysub.routes())
 const mongoose = require('mongoose')
-const {connect , initSchemas} = require('./database/init.js')
 ;(async () =>{
     await connect()
     initSchemas()
